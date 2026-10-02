@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="贷款方案研究室：一件以清晰界面和真实逐期计算，呈现等额本息与等额本金差异的交互设计作品。">
+  <title>贷款方案研究室｜交互设计作品</title>
+  <link rel="stylesheet" href="landing.css">
+  <link rel="stylesheet" href="aureo-fonts.css">
+  <link rel="stylesheet" href="aureo-landing.css">
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/landing.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="贷款方案研究室，返回页面顶部">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong>贷款方案研究室</strong><small>LOAN PLAN LAB</small></span>
+      </a>
+      <nav class="header-nav" aria-label="页面导航">
+        <a href="#overview">作品概览</a>
+        <a href="#methods">两种路径</a>
+        <a href="#highlights">交互亮点</a>
+        <a class="header-cta" href="calculator.html#input-title">体验计算器 <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="landing-hero" id="top" aria-labelledby="hero-title">
+    <img class="hero-art" src="assets/landing-hero.webp" alt="" fetchpriority="high" decoding="async">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow light">交互设计作品 · INTERACTIVE FINANCE</p>
+        <h1 id="hero-title">把每一次还款，<br><em>变成看得懂的选择。</em></h1>
+        <p class="hero-lead">从一笔贷款的第一期到最后一期，用清晰的界面呈现两种还款路径。看见月供节奏、长期成本，也看见每个数字从哪里来。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="calculator.html#input-title">体验计算器 <span aria-hidden="true">↗</span></a>
+          <a class="button button-ghost" href="#overview">探索作品 <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-meta" aria-hidden="true"><span>01 / 交互式金融方案展示</span><i class="meta-line"></i><span>SCROLL TO EXPLORE ↓</span></div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container capability-wrap" aria-label="作品能力">
+      <div class="capability-strip">
+        <div><b>01</b><span>逐期真实测算</span></div>
+        <div><b>02</b><span>双方案可视比较</span></div>
+        <div><b>03</b><span>完整明细可追溯</span></div>
+      </div>
+    </div>
+
+    <section class="container overview" id="overview" aria-labelledby="overview-title">
+      <div class="section-header" data-reveal>
+        <div><p class="eyebrow">01 / 作品概览</p><h2 id="overview-title">把复杂的还款过程，<br>放进一个清晰的界面。</h2></div>
+        <p>输入同一组贷款条件，页面会逐月生成两份完整计划。关键结论、趋势图与明细表读取同一份计算结果，让比较有依据。</p>
+      </div>
+      <figure class="preview-frame" data-reveal>
+        <div class="preview-toolbar" aria-hidden="true"><span class="window-dots"><i></i><i></i><i></i></span><span>LOAN PLAN LAB / LIVE INTERFACE</span></div>
+        <div class="preview-canvas"><img src="assets/preview-results.webp" alt="计算器在默认示例下展示总利息差额、首月月供差额与两种还款方案卡片" decoding="async"></div>
+        <figcaption class="preview-caption"><p>真实界面预览 · 默认示例：300 万元 / 25 年 / 年利率 4.9%</p><a href="calculator.html#results-title">进入完整界面 <span aria-hidden="true">↗</span></a></figcaption>
+      </figure>
+    </section>
+
+    <section class="methods" id="methods" aria-labelledby="methods-title">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <div><p class="eyebrow light">02 / 两种路径</p><h2 id="methods-title">同一笔贷款，<br>两种不同的时间节奏。</h2></div>
+          <p>月供稳定或逐月递减，差别不只在最终总额，还在每个月需要拿出多少现金。</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-card" data-reveal>
+            <div class="method-art"><img src="assets/method-annuity.webp" alt="" decoding="async"></div>
+            <div class="method-copy"><span class="method-tag">01 / 稳定月供</span><h3>等额本息</h3><p>每月偿还总额基本相同，适合希望预算更平稳地向前推进的人。</p><a href="calculator.html#results-title">查看方案详情 <span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="method-card" data-reveal>
+            <div class="method-art"><img src="assets/method-principal.webp" alt="" decoding="async"></div>
+            <div class="method-copy"><span class="method-tag">02 / 逐月递减</span><h3>等额本金</h3><p>本金按期平均分摊，利息随剩余本金减少，月供从较高的起点逐步下降。</p><a href="calculator.html#results-title">查看方案详情 <span aria-hidden="true">↗</span></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container highlights" id="highlights" aria-labelledby="highlights-title">
+      <div class="section-header" data-reveal>
+        <div><p class="eyebrow">03 / 交互亮点</p><h2 id="highlights-title">从条件输入，<br>走向有依据的判断。</h2></div>
+        <p>不只给出一个总数。每一步都能继续展开，让使用者从概览走到具体月份。</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card" data-reveal>
+          <span class="feature-number">01 / INPUT</span>
+          <div class="feature-visual" aria-hidden="true"><div class="visual-input"><i></i><i></i><i></i></div></div>
+          <h3>输入即更新</h3><p>修改金额、期限或利率，两种方案随之重新计算。</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-number">02 / COMPARE</span>
+          <div class="feature-visual visual-ribbons" aria-hidden="true"><i></i><i></i></div>
+          <h3>并排看差别</h3><p>把月供压力、剩余本金与长期利息成本放在同一视角。</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-number">03 / TRACE</span>
+          <div class="feature-visual" aria-hidden="true"><div class="visual-rows"><i></i><i></i><i></i><i></i></div></div>
+          <h3>逐期可追溯</h3><p>切换还款方式、展开全部明细，并导出完整 CSV。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container final-cta" aria-labelledby="final-title" data-reveal>
+      <p class="eyebrow light">04 / 进入作品</p>
+      <h2 id="final-title">换一组条件，<br>亲自看看选择怎样改变。</h2>
+      <a class="button button-primary" href="calculator.html#input-title">体验计算器 <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div><strong>贷款方案研究室</strong><p>一件把贷款计算与可视化表达结合的交互设计作品。</p></div><a href="calculator.html#input-title">进入计算器 <span aria-hidden="true">↗</span></a></div></footer>
+</body>
+</html>

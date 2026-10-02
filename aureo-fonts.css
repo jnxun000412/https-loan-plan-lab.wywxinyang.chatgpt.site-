@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Aureo Display";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("./assets/fonts/CormorantGaramond-Latin-Variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aureo Body";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("./assets/fonts/Inter-Latin-Variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aureo Mono";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("./assets/fonts/JetBrainsMono-Latin-Variable.woff2") format("woff2");
+}

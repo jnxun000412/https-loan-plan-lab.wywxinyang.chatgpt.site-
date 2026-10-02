@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="输入贷款金额、期限与年利率，逐月生成等额本息和等额本金还款方案，直观比较月供与总利息。">
+  <title>贷款金融方案展示｜贷款方案研究室</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="refinement.css">
+  <link rel="stylesheet" href="aureo-fonts.css">
+  <link rel="stylesheet" href="aureo-theme.css">
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/loan.js" defer></script>
+  <script src="js/charts.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/motion.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="贷款方案研究室，返回作品首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong>贷款方案研究室</strong><small>LOAN PLAN LAB</small></span>
+      </a>
+      <nav class="header-nav" aria-label="页面导航">
+        <a href="index.html">作品首页</a>
+        <a href="#results-title">方案比较</a>
+        <a href="#schedule-title">还款明细</a>
+        <a class="header-action" href="#input-title">开始测算 <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-art" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow light">从每期还款，看清长期成本</div>
+        <h1 id="hero-title" class="max-w-5xl">每个月还多少，<br><em>看得见，也算得清。</em></h1>
+        <p>输入贷款条件，像银行客户经理一样，从第一期算到最后一期。并排查看等额本息与等额本金，了解月供压力和长期成本。</p>
+        <div class="hero-actions">
+          <a class="hero-action-primary" href="#input-title">开始测算 <span aria-hidden="true">↗</span></a>
+          <a class="hero-action-secondary" href="#results-title">了解两种方案 <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-main">
+    <section class="container calculator-wrap" aria-labelledby="input-title">
+      <div class="calculator-card">
+        <div class="section-heading input-heading">
+          <div>
+            <span class="section-kicker">贷款条件</span>
+            <h2 id="input-title">先告诉我们你的贷款计划</h2>
+            <p>修改任意条件，结果会自动更新；也可以点击“生成方案”。</p>
+          </div>
+          <span class="example-chip">课堂表格示例已填入</span>
+        </div>
+        <form id="loan-form" novalidate>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="principal">贷款金额</label>
+              <div class="input-shell"><span class="input-prefix">¥</span><input id="principal" name="principal" type="number" min="1000" max="100000000" step="any" inputmode="decimal" value="3000000" aria-describedby="principal-hint principal-error"><span class="input-unit">元</span></div>
+              <small class="field-hint" id="principal-hint">范围：1,000 元至 1 亿元</small>
+              <small class="field-error" id="principal-error" aria-live="polite"></small>
+            </div>
+            <div class="form-field">
+              <label for="term">贷款期限</label>
+              <div class="input-shell"><input id="term" name="term" type="number" min="0.083333" max="600" step="any" inputmode="decimal" value="25" aria-describedby="term-hint term-error"><span class="input-unit" id="term-unit-label">年</span></div>
+              <small class="field-hint" id="term-hint">按年可输入 1.5 年等整月期限</small>
+              <small class="field-error" id="term-error" aria-live="polite"></small>
+            </div>
+            <fieldset class="form-field unit-field">
+              <legend>期限单位</legend>
+              <div class="segmented" role="group" aria-label="期限单位">
+                <label><input type="radio" name="termUnit" value="year" checked><span>按年</span></label>
+                <label><input type="radio" name="termUnit" value="month"><span>按月</span></label>
+              </div>
+              <small class="field-hint">系统统一换算为月数</small>
+            </fieldset>
+            <div class="form-field">
+              <label for="annual-rate">年利率</label>
+              <div class="input-shell"><input id="annual-rate" name="annualRate" type="number" min="0" max="30" step="any" inputmode="decimal" value="4.9" aria-describedby="rate-hint annualRate-error"><span class="input-unit">%</span></div>
+              <small class="field-hint" id="rate-hint">支持 0% 至 30%</small>
+              <small class="field-error" id="annualRate-error" aria-live="polite"></small>
+            </div>
+          </div>
+          <div class="form-footer">
+            <p><span class="info-icon" aria-hidden="true">i</span> 计算采用年利率 ÷ 12 作为月利率，逐期按剩余本金计息。</p>
+            <button class="primary-button" type="submit">生成金融方案 <span aria-hidden="true">↗</span></button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="signal-marquee" aria-hidden="true">
+      <div class="signal-track">
+        <span>每一期都有依据</span><span>月供变化看得见</span><span>利息成本算得清</span><span>完整计划可展开</span>
+        <span>每一期都有依据</span><span>月供变化看得见</span><span>利息成本算得清</span><span>完整计划可展开</span>
+      </div>
+    </div>
+
+    <div id="results" hidden>
+      <section class="container results-intro" aria-labelledby="results-title">
+        <div class="section-heading">
+          <div><span class="section-kicker">本次测算</span><h2 id="results-title">同一笔贷款，两条还款路径</h2><p id="result-context">—</p></div>
+          <span class="calculated-badge"><span class="status-dot"></span>已完成逐期测算</span>
+        </div>
+        <div class="headline-stats" aria-label="本次贷款关键结果">
+          <div class="headline-stat"><span>等额本金预计少付利息</span><strong id="interest-saving">—</strong><small>与等额本息相比，这笔贷款的长期成本差额</small></div>
+          <div class="headline-stat"><span>等额本金首月多还</span><strong id="first-gap">—</strong><small>前期现金流需要更宽裕</small></div>
+          <div class="headline-stat subtle"><span>贷款总期数</span><strong id="total-months">—</strong><small>每一期均纳入计算</small></div>
+        </div>
+        <div class="plan-grid" aria-label="两种还款方案">
+          <article class="plan-card annuity-card" aria-labelledby="annuity-title">
+            <div class="plan-top"><div class="plan-icon annuity-icon" aria-hidden="true">＝</div><span class="plan-tag">稳定月供</span></div>
+            <h3 id="annuity-title">等额本息</h3>
+            <p class="plan-lead">每月偿还总额基本相同，前期利息占比更高。</p>
+            <div class="plan-primary"><span>每月月供</span><strong id="annuity-monthly">—</strong><small>贯穿整个贷款期限</small></div>
+            <div class="plan-metrics"><div><span>总利息</span><strong id="annuity-interest">—</strong></div><div><span>总还款额</span><strong id="annuity-total">—</strong></div></div>
+            <div class="plan-foot"><span>第 1 期本金 / 利息</span><strong id="annuity-split">—</strong></div>
+          </article>
+          <article class="plan-card principal-card" aria-labelledby="principal-title">
+            <div class="plan-top"><div class="plan-icon principal-icon" aria-hidden="true">↘</div><span class="plan-tag">逐月递减</span></div>
+            <h3 id="principal-title">等额本金</h3>
+            <p class="plan-lead">每月偿还本金相同，利息随着剩余本金减少。</p>
+            <div class="plan-primary"><span>首月月供 <i>→</i> 末月月供</span><strong class="range-amount"><span id="principal-first">—</span><b aria-hidden="true">→</b><span id="principal-last">—</span></strong><small id="principal-decline">—</small></div>
+            <div class="plan-metrics"><div><span>总利息</span><strong id="principal-interest">—</strong></div><div><span>总还款额</span><strong id="principal-total">—</strong></div></div>
+            <div class="plan-foot"><span>每期偿还本金约</span><strong id="principal-fixed">—</strong></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="container content-section" aria-labelledby="comparison-title">
+        <div class="section-heading"><div><span class="section-kicker">方案对照</span><h2 id="comparison-title">差别，放在一张表里看</h2><p>不仅比较最终成本，也看看资金压力发生在什么时候。</p></div></div>
+        <div class="comparison-card">
+          <div class="comparison-row comparison-head"><span>对比维度</span><strong>等额本息</strong><strong>等额本金</strong></div>
+          <div class="comparison-row"><span>首月月供</span><strong id="compare-first-annuity">—</strong><strong id="compare-first-principal">—</strong></div>
+          <div class="comparison-row"><span>末月月供</span><strong id="compare-last-annuity">—</strong><strong id="compare-last-principal">—</strong></div>
+          <div class="comparison-row"><span>总利息</span><strong id="compare-interest-annuity">—</strong><strong id="compare-interest-principal">—</strong></div>
+          <div class="comparison-row"><span>总还款额</span><strong id="compare-total-annuity">—</strong><strong id="compare-total-principal">—</strong></div>
+          <div class="comparison-row text-row"><span>前期还款压力</span><strong>相对平稳</strong><strong>相对较高</strong></div>
+          <div class="comparison-row text-row"><span>适合的资金安排</span><strong>希望月供稳定、易于预算</strong><strong>能承担较高前期月供、关注总利息</strong></div>
+        </div>
+      </section>
+
+      <section class="container content-section charts-section" aria-labelledby="chart-title">
+        <div class="charts-layout">
+          <div class="charts-rail">
+            <div class="section-heading"><div><span class="section-kicker">资金节奏</span><h2 id="chart-title">把还款变化<br>画出来</h2><p>从月供、剩余本金，到最终利息成本。每一条曲线都来自下方的完整计划。</p></div></div>
+            <p class="charts-method">长周期只在绘图时抽样，逐期明细和汇总仍使用全部月份。</p>
+            <div class="charts-visual" aria-hidden="true"><img src="assets/chart-chapter.webp" alt="" decoding="async"></div>
+          </div>
+          <div class="chart-grid">
+            <article class="chart-card"><div class="chart-title"><div><h3>每月还款额</h3><p>平稳与递减，一眼看清</p></div></div><div class="chart-legend"><span class="legend-annuity">等额本息</span><span class="legend-principal">等额本金</span></div><div id="payment-chart" class="chart-area"></div></article>
+            <article class="chart-card"><div class="chart-title"><div><h3>剩余本金</h3><p>观察本金如何逐月下降</p></div></div><div class="chart-legend"><span class="legend-annuity">等额本息</span><span class="legend-principal">等额本金</span></div><div id="balance-chart" class="chart-area"></div></article>
+            <article class="chart-card interest-card"><div class="chart-title"><div><h3>总利息对比</h3><p>同样的本金与期限，成本不同</p></div></div><div id="interest-chart" class="interest-chart"></div><p class="chart-note" id="interest-note">—</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="container content-section" aria-labelledby="schedule-title">
+        <div class="section-heading schedule-heading"><div><span class="section-kicker">逐期明细</span><h2 id="schedule-title">像 Excel 一样，逐期展开</h2><p>每期都从期初剩余本金开始计算利息，再更新期末本金。</p></div><button class="text-button" id="download-csv" type="button">下载完整 CSV <span aria-hidden="true">↗</span></button></div>
+        <div class="schedule-card">
+          <div class="schedule-controls"><div class="tabs" role="tablist" aria-label="还款方式"><button id="tab-annuity" class="tab active" type="button" role="tab" aria-selected="true" aria-controls="schedule-panel" data-method="equalPayment">等额本息</button><button id="tab-principal" class="tab" type="button" role="tab" aria-selected="false" aria-controls="schedule-panel" data-method="equalPrincipal">等额本金</button></div><span id="schedule-count">—</span></div>
+          <div id="schedule-panel" role="tabpanel" aria-labelledby="tab-annuity"><div class="table-scroll"><table><caption class="sr-only">贷款逐期还款明细</caption><thead><tr><th scope="col">期数</th><th scope="col">每月还款额</th><th scope="col">偿还本金</th><th scope="col">偿还利息</th><th scope="col">剩余本金</th></tr></thead><tbody id="schedule-body"></tbody></table></div></div>
+          <div class="schedule-bottom"><p>金额显示至分；计算过程保留完整精度，末期消除浮点尾差。</p><button class="outline-button" id="toggle-schedule" type="button" aria-expanded="false">查看完整还款计划 <span aria-hidden="true">↓</span></button></div>
+        </div>
+      </section>
+
+      <section class="container interpretation-section" aria-labelledby="interpretation-title">
+        <div class="interpretation-header"><span class="section-kicker">客户经理视角</span><h2 id="interpretation-title">哪一种更适合你？</h2><p>没有适用于所有人的答案，关键是前期承受能力与长期成本偏好。</p></div>
+        <div class="insight-carousel" role="region" aria-roledescription="轮播" aria-label="方案解读">
+          <div class="insight-stage">
+            <article class="insight is-active" aria-hidden="false"><h3>重视每月预算稳定</h3><p id="insight-annuity">—</p></article>
+            <article class="insight" aria-hidden="true"><h3>希望少付一些利息</h3><p id="insight-principal">—</p></article>
+            <article class="insight" aria-hidden="true"><h3>结合自身现金流</h3><p id="insight-decision">—</p></article>
+          </div>
+          <div class="insight-controls"><span id="insight-position">1 / 3</span><div><button id="insight-prev" type="button" aria-label="上一条解读">←</button><button id="insight-next" type="button" aria-label="下一条解读">→</button></div></div>
+        </div>
+      </section>
+
+      <section class="container action-section" aria-labelledby="action-title">
+        <p>理解每一期，再决定下一步</p>
+        <h2 id="action-title">换一组贷款条件，<br>看看结果如何改变。</h2>
+        <a href="#input-title">重新测算 <span aria-hidden="true">↗</span></a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div><strong>贷款方案研究室</strong><p>用可追溯的逐月计算，解释两种常见还款方式。</p></div><p>本网页用于金融课程演示。实际贷款可能受计息日、银行舍入规则及提前还款等因素影响，测算结果不构成贷款承诺。</p></div></footer>
+</body>
+</html>
